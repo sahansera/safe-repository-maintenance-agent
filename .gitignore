@@ -1,0 +1,12 @@
+**/bin/
+**/obj/
+**/.venv/
+**/__pycache__/
+**/.pytest_cache/
+**/*.egg-info/
+.DS_Store
+.idea/
+.vscode/
+.coverage
+coverage.xml
+
