@@ -1,0 +1,145 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="860" viewBox="0 0 1440 860" role="img" aria-labelledby="title desc">
+  <title id="title">Safe Repository Maintenance Agent architecture</title>
+  <desc id="desc">An operator gives a task to a .NET or Python host. Microsoft Agent Framework and the GitHub Copilot harness inspect a selected repository. Every sensitive action returns through a host-owned permission policy for approval or denial. Approved actions produce a reviewable patch, validation evidence, and an audit trail. Network, MCP, and unknown capabilities are denied by default.</desc>
+
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b1020"/>
+      <stop offset="1" stop-color="#111a33"/>
+    </linearGradient>
+    <linearGradient id="host" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6d5dfc"/>
+      <stop offset="1" stop-color="#4b3bc4"/>
+    </linearGradient>
+    <linearGradient id="agent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#147d98"/>
+      <stop offset="1" stop-color="#0e586f"/>
+    </linearGradient>
+    <linearGradient id="result" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#19734b"/>
+      <stop offset="1" stop-color="#105238"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#020617" flood-opacity="0.38"/>
+    </filter>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#a8b3cf"/>
+    </marker>
+    <marker id="arrow-green" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#57d49b"/>
+    </marker>
+    <marker id="arrow-red" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path d="M 0 0 L 10 5 L 0 10 z" fill="#ff7d8a"/>
+    </marker>
+    <style>
+      .title { font: 700 34px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #f8fafc; }
+      .subtitle { font: 400 17px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #a8b3cf; }
+      .zone-title { font: 700 14px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; letter-spacing: 1.6px; fill: #94a3b8; }
+      .box-title { font: 700 20px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #ffffff; }
+      .box-copy { font: 400 15px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #dbe4f3; }
+      .small { font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #cbd5e1; }
+      .flow { font: 600 13px -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; fill: #b9c4dc; }
+      .green { fill: #75e2b3; }
+      .red { fill: #ff9aa4; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="860" rx="28" fill="url(#background)"/>
+  <circle cx="1320" cy="90" r="180" fill="#6d5dfc" opacity="0.07"/>
+  <circle cx="90" cy="790" r="220" fill="#22c55e" opacity="0.05"/>
+
+  <text x="64" y="64" class="title">The agent proposes. The host decides.</text>
+  <text x="64" y="94" class="subtitle">A permission-gated maintenance loop with an explicit trust boundary and reviewable evidence.</text>
+
+  <rect x="40" y="130" width="220" height="500" rx="22" fill="#11182b" stroke="#34415f" stroke-width="2" stroke-dasharray="7 7"/>
+  <text x="68" y="164" class="zone-title">HUMAN CONTROL</text>
+
+  <rect x="290" y="130" width="730" height="500" rx="22" fill="#11182b" stroke="#6d5dfc" stroke-width="2"/>
+  <text x="318" y="164" class="zone-title">TRUSTED HOST APPLICATION</text>
+
+  <rect x="1050" y="130" width="350" height="500" rx="22" fill="#11182b" stroke="#e3a43b" stroke-width="2" stroke-dasharray="7 7"/>
+  <text x="1078" y="164" class="zone-title">UNTRUSTED REPOSITORY</text>
+
+  <rect x="68" y="210" width="164" height="110" rx="18" fill="#25304a" stroke="#566580" filter="url(#shadow)"/>
+  <circle cx="102" cy="247" r="15" fill="none" stroke="#dbe4f3" stroke-width="3"/>
+  <path d="M78 290c3-21 15-31 24-31s21 10 24 31" fill="none" stroke="#dbe4f3" stroke-width="3" stroke-linecap="round"/>
+  <text x="140" y="250" class="box-title">Operator</text>
+  <text x="140" y="277" class="box-copy">Task + intent</text>
+
+  <rect x="68" y="408" width="164" height="142" rx="18" fill="#25304a" stroke="#566580" filter="url(#shadow)"/>
+  <text x="88" y="442" class="box-title">Approval</text>
+  <text x="88" y="472" class="box-copy">Target path</text>
+  <text x="88" y="496" class="box-copy">Proposed diff</text>
+  <text x="88" y="520" class="box-copy">Full command</text>
+
+  <rect x="330" y="205" width="260" height="116" rx="18" fill="url(#host)" filter="url(#shadow)"/>
+  <text x="358" y="240" class="box-title">.NET or Python host</text>
+  <text x="358" y="270" class="box-copy">Selects the working directory</text>
+  <text x="358" y="294" class="box-copy">Owns lifecycle and authority</text>
+
+  <rect x="650" y="205" width="320" height="116" rx="18" fill="url(#agent)" filter="url(#shadow)"/>
+  <text x="678" y="240" class="box-title">Agent runtime</text>
+  <text x="678" y="270" class="box-copy">Microsoft Agent Framework</text>
+  <text x="678" y="294" class="box-copy">GitHub Copilot harness</text>
+
+  <rect x="470" y="405" width="330" height="145" rx="18" fill="#251d46" stroke="#8b7cff" stroke-width="2" filter="url(#shadow)"/>
+  <path d="M515 439l18 8v13c0 14-8 25-18 31-10-6-18-17-18-31v-13z" fill="none" stroke="#b8adff" stroke-width="3"/>
+  <path d="M507 460l6 6 12-14" fill="none" stroke="#75e2b3" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="552" y="453" class="box-title">Permission policy</text>
+  <text x="552" y="481" class="box-copy">Read: approve once</text>
+  <text x="552" y="505" class="box-copy">Write / shell: ask</text>
+  <text x="552" y="529" class="box-copy">Unknown: deny</text>
+
+  <rect x="1085" y="205" width="280" height="210" rx="18" fill="#30271b" stroke="#bd8430" filter="url(#shadow)"/>
+  <text x="1113" y="241" class="box-title">Selected repository</text>
+  <rect x="1113" y="265" width="224" height="36" rx="8" fill="#44351f"/>
+  <text x="1130" y="289" class="small">AGENTS.md instructions</text>
+  <rect x="1113" y="311" width="224" height="36" rx="8" fill="#44351f"/>
+  <text x="1130" y="335" class="small">Source + configuration</text>
+  <rect x="1113" y="357" width="224" height="36" rx="8" fill="#44351f"/>
+  <text x="1130" y="381" class="small">Tests + validation scripts</text>
+
+  <rect x="1085" y="460" width="280" height="90" rx="18" fill="url(#result)" filter="url(#shadow)"/>
+  <text x="1113" y="495" class="box-title">Reviewable result</text>
+  <text x="1113" y="524" class="box-copy">Patch + tests + explanation</text>
+
+  <path d="M232 265H330" fill="none" stroke="#a8b3cf" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="252" y="250" class="flow">1 · task</text>
+
+  <path d="M590 263H650" fill="none" stroke="#a8b3cf" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="602" y="248" class="flow">2</text>
+
+  <path d="M970 263H1085" fill="none" stroke="#a8b3cf" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="993" y="248" class="flow">3 · inspect</text>
+
+  <path d="M810 321V367Q810 382 795 382H650Q635 382 635 397V405" fill="none" stroke="#a8b3cf" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="821" y="369" class="flow">4 · request capability</text>
+
+  <path d="M470 478H232" fill="none" stroke="#a8b3cf" stroke-width="3" marker-end="url(#arrow)"/>
+  <text x="291" y="463" class="flow">5 · ask with context</text>
+
+  <path d="M232 510H410Q430 510 430 530V568Q430 586 448 586H825Q845 586 845 566V510Q845 490 825 490H800" fill="none" stroke="#57d49b" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="480" y="607" class="flow green">6 · approve once</text>
+
+  <path d="M800 478H1025Q1045 478 1045 458V420Q1045 400 1065 400H1085" fill="none" stroke="#57d49b" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="864" y="462" class="flow green">7 · execute approved action</text>
+
+  <path d="M1225 415V460" fill="none" stroke="#57d49b" stroke-width="3" marker-end="url(#arrow-green)"/>
+
+  <rect x="290" y="670" width="730" height="134" rx="20" fill="#11182b" stroke="#34415f" stroke-width="2"/>
+  <text x="318" y="705" class="zone-title">DEFAULT-DENIED SURFACE</text>
+  <rect x="330" y="727" width="190" height="46" rx="12" fill="#3a2028" stroke="#c24f5d"/>
+  <text x="383" y="756" class="small red">Network / URLs</text>
+  <rect x="560" y="727" width="190" height="46" rx="12" fill="#3a2028" stroke="#c24f5d"/>
+  <text x="618" y="756" class="small red">MCP servers</text>
+  <rect x="790" y="727" width="190" height="46" rx="12" fill="#3a2028" stroke="#c24f5d"/>
+  <text x="824" y="756" class="small red">Unknown capabilities</text>
+  <path d="M635 550V670" fill="none" stroke="#ff7d8a" stroke-width="3" stroke-dasharray="7 7" marker-end="url(#arrow-red)"/>
+  <text x="650" y="646" class="flow red">deny</text>
+
+  <path d="M1085 530H1020Q1000 530 1000 550V590Q1000 610 980 610H258Q238 610 238 590V550" fill="none" stroke="#57d49b" stroke-width="3" marker-end="url(#arrow-green)"/>
+  <text x="852" y="597" class="flow green">8 · stream evidence</text>
+
+  <text x="1085" y="590" class="small">Audit trail</text>
+  <text x="1085" y="614" class="box-copy">requests · decisions · diffs · commands</text>
+</svg>

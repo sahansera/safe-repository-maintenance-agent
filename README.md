@@ -100,19 +100,11 @@ git restore fixture/src/normalize-title.js fixture/test/normalize-title.test.js
 
 ## 🧠 How it works
 
-```mermaid
-flowchart LR
-    Operator([Operator]) --> Host[.NET or Python host]
-    Host --> Policy{Permission policy}
-    Host --> MAF[Microsoft Agent Framework]
-    MAF --> Copilot[GitHub Copilot harness]
-    Copilot --> Repo[(Selected repository)]
-    Copilot --> Request{Sensitive action?}
-    Request --> Policy
-    Policy -->|approve once| Copilot
-    Policy -->|ask| Operator
-    Policy -->|deny| Blocked[Action blocked]
-```
+![Architecture diagram showing the operator, trusted host, agent runtime, permission policy, untrusted repository, denied capabilities, and reviewable output](docs/architecture-overview.svg)
+
+The maintenance loop is intentionally asymmetric: the agent can inspect and propose, but only the
+host can grant authority. Writes and shell commands return to the operator with concrete context;
+network, MCP, and unknown capabilities stop at the policy boundary.
 
 The responsibilities are deliberately separate:
 
