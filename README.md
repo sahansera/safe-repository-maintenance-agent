@@ -61,7 +61,7 @@ subscription.
 ```bash
 git clone https://github.com/sahansera/safe-repository-maintenance-agent.git
 cd safe-repository-maintenance-agent/dotnet
-dotnet run -- ../fixture
+dotnet run --project src/SafeRepositoryAgent -- ../fixture
 ```
 
 Run the policy tests:
