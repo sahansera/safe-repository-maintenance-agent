@@ -71,6 +71,7 @@ def test_verifier_accepts_patch_that_passes_trusted_check(tmp_path: Path) -> Non
     )
 
     assert report["passed"] is True
+    assert len(report["patchSha256"]) == 64
     assert report["changedPaths"] == ["fixture/value.txt"]
     assert report["checks"][0]["passed"] is True
 

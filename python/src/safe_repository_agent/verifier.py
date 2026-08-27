@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import argparse
+import hashlib
 import json
 import subprocess
 import tempfile
@@ -117,6 +118,7 @@ def verify_patch(
         patch_bytes = patch_path.read_bytes()
         if not patch_bytes:
             raise VerificationError("Candidate patch is empty")
+        report["patchSha256"] = hashlib.sha256(patch_bytes).hexdigest()
 
         with tempfile.TemporaryDirectory(prefix="safe-repo-verifier-") as temp_dir:
             workspace = Path(temp_dir) / "repository"
