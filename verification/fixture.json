@@ -1,0 +1,15 @@
+{
+  "workingDirectory": "fixture",
+  "protectedPaths": [
+    ".github/workflows",
+    "fixture/AGENTS.md",
+    "verification"
+  ],
+  "checks": [
+    {
+      "name": "fixture-tests",
+      "command": ["npm", "test"],
+      "timeoutSeconds": 60
+    }
+  ]
+}
