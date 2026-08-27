@@ -46,6 +46,7 @@ No invisible `--yolo`. No permission-by-prompt. No surprise pull request at 2 a.
 - **Fail-closed defaults** - URL, MCP, and unknown capabilities are denied
 - **Streaming output** - watch the agent work and see every permission boundary
 - **Deterministic policy tests** - no model request or subscription required
+- **Independent patch verification** - rebuild from a clean base and run trusted checks
 - **CI for both languages** - because “the agent said it passed” is not test evidence
 
 ## 🚀 Try the demo
@@ -97,6 +98,29 @@ After the agent repairs the fixture, reset the tiny crime scene:
 ```bash
 git restore fixture/src/normalize-title.js fixture/test/normalize-title.test.js
 ```
+
+### Verify the exact patch independently
+
+The Python package also includes a verifier that is separate from the agent runtime. Capture the
+base commit before the agent runs, export its exact patch, then ask the verifier to reconstruct that
+base in a temporary clone and run the trusted fixture policy:
+
+```bash
+cd safe-repository-maintenance-agent
+BASE_SHA=$(git rev-parse HEAD)
+
+cd python
+safe-repo-agent ../fixture
+cd ..
+
+git diff --binary "$BASE_SHA" -- fixture > candidate.patch
+safe-repo-verify . "$BASE_SHA" candidate.patch
+```
+
+The verifier reads `verification/fixture.json` from the base commit, not from the agent's mutable
+working tree. It rejects changes to protected paths, applies the patch in a clean detached checkout,
+runs `npm test` without a shell, and emits a JSON report. It does not commit, push, or create a pull
+request.
 
 ## 🧠 How it works
 
@@ -159,6 +183,7 @@ By default, it cannot:
 ├── dotnet/                  # .NET 10 host and xUnit policy tests
 ├── python/                  # Async Python host and pytest policy tests
 ├── fixture/                 # Deliberately failing, language-neutral target repo
+├── verification/            # Trusted checks for independent patch verification
 ├── docs/
 │   ├── architecture.md      # Runtime responsibilities and trust boundaries
 │   └── permission-model.md  # Decisions, rationale, and production evolution
@@ -171,6 +196,7 @@ Want the implementation explained one decision at a time?
 
 - [Build a Safe Repository Maintenance Agent in .NET](https://sahansera.dev/safe-repository-maintenance-agent-dotnet/)
 - [Build a Safe Repository Maintenance Agent in Python](https://sahansera.dev/safe-repository-maintenance-agent-python/)
+- Building an Independent Verification Pipeline for AI-Generated Code (coming next)
 
 Both tutorials build the same agent against the same fixture. That makes the language differences
 easy to see without changing the problem halfway through.
@@ -193,6 +219,7 @@ CI strategy. CI runs the .NET and Python policy suites instead.
 - [x] Fail-closed URL and MCP policy
 - [x] Shared repair fixture
 - [x] Two-language CI
+- [x] Clean-base, exact-patch verifier for the shared fixture
 - [ ] Containerized runner for untrusted repositories
 - [ ] OTLP example with redacted agent telemetry
 - [ ] Durable approval adapter for service workloads
